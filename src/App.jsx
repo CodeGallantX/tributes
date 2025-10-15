@@ -2,11 +2,11 @@ import React from 'react';
 
 // --- CONFIG & DATA ---
 
-// Custom colors based on the uploaded image analysis
+// Custom colours based on the uploaded image analysis
 const customColors = {
   // Deep Ocean Teal Background: #00707a (Used in Hero, Story, and new Tributes sections)
   background: '#00707a',
-  // Lighter Teal Marker Color: #0096a0 for contrast
+  // Lighter Teal Marker Colour: #0096a0 for contrast
   marker: '#0096a0', 
   // Salmon/Peach Button Background: #FFB8A5 (Used in Hero section)
   button: '#FFB8A5',
@@ -16,7 +16,7 @@ const customColors = {
   darkRed: '#B2353A',
   // Blue/Teal for the pyramid blocks & Memory Cards: #008496 
   pyramidTeal: '#008496',
-  // Light Gray/White for the timeline line and text
+  // Light Grey/White for the timeline line and text
   text: 'white',
 };
 
@@ -47,7 +47,7 @@ const impactItems = [
     { title: "Family Values", description: "Raised a family rooted in integrity, compassion, and resilience. She was a dutiful home keeper that rose early consistently to give meat to her house", icon: "🌱" },
 ];
 
-// Data for the 'Favorite Memories' section
+// Data for the 'Favourite Memories' section
 const memoryItems = [
     { 
         title: "“Rising up early to nurture her household”", 
@@ -139,7 +139,7 @@ const finalWordsData = [
   },
   {
     title: "Legacy Continues",
-    content: "We honor her memory by living the values she instilled: kindness, strength, faith, and unwavering love.",
+    content: "We honour her memory by living the values she instilled: kindness, strength, faith, and unwavering love.",
     icon: <IconLegacy />,
     position: 'top-left',
   },
@@ -166,11 +166,11 @@ const HeroSection = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-10">
         
         <div className="md:w-3/5 lg:w-2/3 text-white">
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6 tracking-wide">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold leading-tight mb-6 tracking-wide font-heading">
             In Loving Memory of FELICIA OLUWAYEMISI BAMIGBAYAN
           </h1>
 
-          <p className="text-lg font-light max-w-xl mb-10 opacity-90">
+          <p className="text-lg font-light max-w-xl mb-10 opacity-90 font-body">
             A cherished wife, mother, grandmother, sister, friend, and pillar of 
             strength who touched countless lives with her boundless love and 
             service. Though she left us on May 25, 2025, her works live on and 
@@ -181,7 +181,7 @@ const HeroSection = () => {
             
             <button
               style={{ backgroundColor: customColors.button }}
-              className="px-6 py-3 text-gray-800 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.02] active:scale-95 text-sm sm:text-base"
+              className="px-6 py-3 text-gray-800 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.02] active:scale-95 text-sm sm:text-base font-body"
               onClick={() => console.log('Share Memory Clicked')}
               aria-label="Share your memory of Felicia"
             >
@@ -194,7 +194,7 @@ const HeroSection = () => {
                 borderColor: '#e79780',
                 borderWidth: '2px',
               }}
-              className="px-6 py-3 text-gray-800 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.02] active:scale-95 text-sm sm:text-base"
+              className="px-6 py-3 text-gray-800 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.02] active:scale-95 text-sm sm:text-base font-body"
               onClick={() => console.log('View Details Clicked')}
               aria-label="View memorial service details"
             >
@@ -207,7 +207,7 @@ const HeroSection = () => {
           <div className="w-64 sm:w-80 md:w-96 rounded-lg overflow-hidden shadow-2xl">
             <img
               src={imageUrl}
-              alt="Portrait of Felicia Oluwayemisi Bamigbayan, wearing a yellow head wrap and a colorful patterned dress."
+              alt="Portrait of Felicia Oluwayemisi Bamigbayan, wearing a yellow head wrap and a colourful patterned dress."
               className="w-full h-auto object-cover rounded-lg"
               style={{ aspectRatio: '4/5' }}
               onError={(e) => {
@@ -230,7 +230,7 @@ const TimelineItem = ({ number, title, content, isLast }) => {
       
       <div className="flex flex-col items-center mr-6">
         <div 
-          className="w-8 h-8 flex items-center justify-center text-lg font-bold rounded-lg text-white shadow-md z-10 flex-shrink-0"
+          className="w-8 h-8 flex items-center justify-center text-lg font-bold rounded-lg text-white shadow-md z-10 flex-shrink-0 font-heading"
           style={{ backgroundColor: customColors.marker }}
         >
           {number}
@@ -254,8 +254,8 @@ const TimelineItem = ({ number, title, content, isLast }) => {
           }}
         ></div>
         
-        <h3 className="text-2xl font-semibold mb-2 mt-[-4px]">{title}</h3>
-        <p className="text-base font-light opacity-90 leading-relaxed">{content}</p>
+        <h3 className="text-2xl font-semibold mb-2 mt-[-4px] font-heading">{title}</h3>
+        <p className="text-base font-light opacity-90 leading-relaxed font-body">{content}</p>
       </div>
     </div>
   );
@@ -270,7 +270,7 @@ const HerStorySection = () => {
       <div className="max-w-4xl mx-auto">
         
         <h2 
-          className="text-4xl sm:text-5xl font-extrabold mb-16 pl-14 tracking-wide"
+          className="text-4xl sm:text-5xl font-extrabold mb-16 pl-14 tracking-wide font-heading"
         >
           Her Story
         </h2>
@@ -290,18 +290,73 @@ const HerStorySection = () => {
 };
 
 
-// Favorite Memories Section
-const FavoriteMemoryCard = ({ title, content }) => (
+// Photo Gallery Section
+const PhotoGallerySection = () => {
+    const galleryImage1 = "https://placehold.co/400x300/e0e0e0/000000?text=Photo+1";
+    const galleryImage2 = "https://placehold.co/400x300/e0e0e0/000000?text=Photo+2";
+
+    return (
+        <div 
+            style={{ backgroundColor: customColors.darkIndigo, color: customColors.text }}
+            className="w-full py-20 px-4 sm:px-8 lg:px-16 flex justify-center"
+        >
+            <div className="max-w-4xl mx-auto w-full">
+                
+                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white font-heading">
+                    Photo Gallery
+                </h2>
+
+                <div className="flex flex-col sm:flex-row gap-6 mb-4">
+                    
+                    <div className="flex-1 min-w-0">
+                        <img
+                            src={galleryImage1}
+                            alt="A beautiful life moment"
+                            className="w-full h-auto object-cover rounded-md shadow-xl"
+                            style={{ aspectRatio: '4/3' }}
+                            onError={(e) => {
+                                e.target.onerror = null; 
+                                e.target.src="https://placehold.co/400x300/e0e0e0/000000?text=Image+Not+Found";
+                            }}
+                        />
+                    </div>
+                    
+                    <div className="flex-1 min-w-0">
+                        <img
+                            src={galleryImage2}
+                            alt="Another beautiful life moment"
+                            className="w-full h-auto object-cover rounded-md shadow-xl"
+                            style={{ aspectRatio: '4/3' }}
+                            onError={(e) => {
+                                e.target.onerror = null; 
+                                e.target.src="https://placehold.co/400x300/e0e0e0/000000?text=Image+Not+Found";
+                            }}
+                        />
+                    </div>
+                </div>
+
+                <p className="text-center text-lg font-light opacity-90 italic pt-4 font-body">
+                    A life beautifully lived through moments big and small
+                </p>
+
+            </div>
+        </div>
+    );
+};
+
+
+// Favourite Memories Section (UK Spelling applied)
+const FavouriteMemoryCard = ({ title, content }) => (
     <div 
         className="p-6 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.03] flex-1 min-w-[280px]"
         style={{ backgroundColor: customColors.pyramidTeal, color: customColors.text }}
     >
-        <h3 className="text-xl font-bold mb-4 leading-snug">{title}</h3>
-        <p className="text-sm font-light leading-relaxed opacity-90">{content}</p>
+        <h3 className="text-xl font-bold mb-4 leading-snug font-heading">{title}</h3>
+        <p className="text-sm font-light leading-relaxed opacity-90 font-body">{content}</p>
     </div>
 );
 
-const FavoriteMemoriesSection = () => {
+const FavouriteMemoriesSection = () => {
     return (
         <div 
             style={{ backgroundColor: customColors.darkIndigo, color: customColors.text }}
@@ -309,13 +364,13 @@ const FavoriteMemoriesSection = () => {
         >
             <div className="max-w-7xl mx-auto w-full">
                 
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white text-center sm:text-left">
-                    Favorite Memories
+                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white text-center sm:text-left font-heading">
+                    Favourite Memories
                 </h2>
 
                 <div className="flex flex-col lg:flex-row gap-8 justify-center items-stretch">
                     {memoryItems.map((item, index) => (
-                        <FavoriteMemoryCard key={index} {...item} />
+                        <FavouriteMemoryCard key={index} {...item} />
                     ))}
                 </div>
 
@@ -351,8 +406,8 @@ const PyramidItem = ({ title, description, icon, index }) => {
                     <div className="text-3xl sm:text-4xl">{icon}</div>
                     
                     <div className="flex flex-col text-left">
-                        <h3 className="text-lg font-bold tracking-wide">{title}</h3>
-                        <p className="text-sm font-light opacity-90">{description}</p>
+                        <h3 className="text-lg font-bold tracking-wide font-heading">{title}</h3>
+                        <p className="text-sm font-light opacity-90 font-body">{description}</p>
                     </div>
                 </div>
                 {index > 0 && (
@@ -374,7 +429,7 @@ const ImpactLegacySection = () => {
         >
             <div className="max-w-4xl mx-auto w-full text-center">
                 
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-16 tracking-wide text-white">
+                <h2 className="text-4xl sm:text-5xl font-extrabold mb-16 tracking-wide text-white font-heading">
                     Her Impact and Legacy
                 </h2>
 
@@ -388,63 +443,8 @@ const ImpactLegacySection = () => {
                     ))}
                 </div>
 
-                <p className="text-lg font-light opacity-90 italic max-w-2xl mx-auto">
+                <p className="text-lg font-light opacity-90 italic max-w-2xl mx-auto font-body">
                     Felicia's impact extends far beyond her immediate circle. Her dedication to uplifting others created ripples that continue to transform lives in our community and beyond.
-                </p>
-
-            </div>
-        </div>
-    );
-};
-
-
-// Photo Gallery Section
-const PhotoGallerySection = () => {
-    const galleryImage1 = "https://placehold.co/400x300/e0e0e0/000000?text=Photo+1";
-    const galleryImage2 = "https://placehold.co/400x300/e0e0e0/000000?text=Photo+2";
-
-    return (
-        <div 
-            style={{ backgroundColor: customColors.darkIndigo, color: customColors.text }}
-            className="w-full py-20 px-4 sm:px-8 lg:px-16 flex justify-center"
-        >
-            <div className="max-w-4xl mx-auto w-full">
-                
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white">
-                    Photo Gallery
-                </h2>
-
-                <div className="flex flex-col sm:flex-row gap-6 mb-4">
-                    
-                    <div className="flex-1 min-w-0">
-                        <img
-                            src={galleryImage1}
-                            alt="A beautiful life moment"
-                            className="w-full h-auto object-cover rounded-md shadow-xl"
-                            style={{ aspectRatio: '4/3' }}
-                            onError={(e) => {
-                                e.target.onerror = null; 
-                                e.target.src="https://placehold.co/400x300/e0e0e0/000000?text=Image+Not+Found";
-                            }}
-                        />
-                    </div>
-                    
-                    <div className="flex-1 min-w-0">
-                        <img
-                            src={galleryImage2}
-                            alt="Another beautiful life moment"
-                            className="w-full h-auto object-cover rounded-md shadow-xl"
-                            style={{ aspectRatio: '4/3' }}
-                            onError={(e) => {
-                                e.target.onerror = null; 
-                                e.target.src="https://placehold.co/400x300/e0e0e0/000000?text=Image+Not+Found";
-                            }}
-                        />
-                    </div>
-                </div>
-
-                <p className="text-center text-lg font-light opacity-90 italic pt-4">
-                    A life beautifully lived through moments big and small
                 </p>
 
             </div>
@@ -460,8 +460,8 @@ const ServiceItem = ({ icon: Icon, label, value }) => (
             <Icon />
         </div>
         <div>
-            <p className="font-bold text-sm text-gray-200">{label}</p>
-            <p className="text-base text-white">{value}</p>
+            <p className="font-bold text-sm text-gray-200 font-body">{label}</p>
+            <p className="text-base text-white font-body">{value}</p>
         </div>
     </div>
 );
@@ -476,7 +476,7 @@ const TributesAndDetailsSection = () => {
         
         <div className="lg:w-1/2 flex flex-col justify-between">
           <div>
-            <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide">
+            <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide font-heading">
               Tributes and Condolences
             </h2>
 
@@ -486,7 +486,7 @@ const TributesAndDetailsSection = () => {
                   <div className="text-xl mr-3" style={{ color: customColors.button }}>
                     &triangleright;
                   </div>
-                  <p className="text-lg font-light leading-relaxed opacity-95">{tribute}</p>
+                  <p className="text-lg font-light leading-relaxed opacity-95 font-body">{tribute}</p>
                 </div>
               ))}
             </div>
@@ -498,7 +498,7 @@ const TributesAndDetailsSection = () => {
               borderColor: '#e79780',
               borderWidth: '2px',
             }}
-            className="w-48 px-6 py-3 text-gray-800 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.02] active:scale-95 text-sm sm:text-base mt-8"
+            className="w-48 px-6 py-3 text-gray-800 font-semibold rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-[1.02] active:scale-95 text-sm sm:text-base mt-8 font-body"
             onClick={() => console.log('Drop a Tribute Clicked')}
             aria-label="Drop a Tribute"
           >
@@ -511,57 +511,57 @@ const TributesAndDetailsSection = () => {
           <div className="md:w-1/2 lg:w-full lg:mb-10 flex justify-center lg:justify-end">
             <div className="w-64 h-80 rounded-lg overflow-hidden relative shadow-2xl">
                 <img
-                    src="https://placehold.co/400x500/00707a/ffffff?text=Memorial+Program"
-                    alt="A memorial program booklet sitting among flowers"
+                    src="https://placehold.co/400x500/00707a/ffffff?text=Memorial+Programme"
+                    alt="A memorial programme booklet sitting among flowers"
                     className="w-full h-full object-cover rounded-lg"
                     onError={(e) => {
                         e.target.onerror = null; 
-                        e.target.src="https://placehold.co/400x500/00707a/ffffff?text=Program+Image";
+                        e.target.src="https://placehold.co/400x500/00707a/ffffff?text=Programme+Image";
                     }}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
-                    <span className="text-2xl font-bold p-2 bg-white text-gray-800 rounded shadow-md opacity-80">
-                        Memorial Program
+                    <span className="text-2xl font-bold p-2 bg-white text-gray-800 rounded shadow-md opacity-80 font-heading">
+                        Memorial Programme
                     </span>
                 </div>
             </div>
           </div>
 
           <div className="md:w-1/2 lg:w-full lg:mt-0 pt-4">
-            <h3 className="text-3xl font-bold mb-8" style={{ color: customColors.button }}>
+            <h3 className="text-3xl font-bold mb-8 font-heading" style={{ color: customColors.button }}>
               Celebration of Life Details
             </h3>
 
-            <h4 className="text-xl font-semibold mb-3">{serviceDetails.serviceOfSongs.title}</h4>
+            <h4 className="text-xl font-semibold mb-3 font-heading">{serviceDetails.serviceOfSongs.title}</h4>
             <div className="pl-4 border-l-2 mb-6" style={{ borderColor: customColors.marker }}>
               <ServiceItem icon={IconCalendar} label="Date" value={serviceDetails.serviceOfSongs.date} />
               <ServiceItem icon={IconClock} label="Time" value={serviceDetails.serviceOfSongs.time} />
               <ServiceItem icon={IconLocation} label="Venue" value={serviceDetails.serviceOfSongs.fullVenue} />
             </div>
 
-            <h4 className="text-xl font-semibold mb-3">{serviceDetails.burialService.title}</h4>
+            <h4 className="text-xl font-semibold mb-3 font-heading">{serviceDetails.burialService.title}</h4>
             <div className="pl-4 border-l-2 mb-6" style={{ borderColor: customColors.marker }}>
               <ServiceItem icon={IconCalendar} label="Date" value={serviceDetails.burialService.date} />
               <ServiceItem icon={IconClock} label="Time" value={serviceDetails.burialService.time} />
               <ServiceItem icon={IconLocation} label="Venue" value={serviceDetails.burialService.fullVenue} />
             </div>
 
-            <h4 className="text-xl font-semibold mb-3">{serviceDetails.interment.title}</h4>
+            <h4 className="text-xl font-semibold mb-3 font-heading">{serviceDetails.interment.title}</h4>
             <div className="pl-4 border-l-2 mb-10" style={{ borderColor: customColors.marker }}>
               <ServiceItem icon={IconLocation} label="Venue" value={serviceDetails.interment.venue} />
             </div>
 
-            <p className="text-sm text-gray-300 mb-2">Virtual Attendance</p>
+            <p className="text-sm text-gray-300 mb-2 font-body">Virtual Attendance</p>
             <div className="space-y-3">
                 <button
-                    className="flex items-center space-x-2 px-4 py-2 bg-gray-700 text-white font-semibold rounded-full shadow-md hover:bg-gray-600 transition duration-300"
+                    className="flex items-center space-x-2 px-4 py-2 bg-gray-700 text-white font-semibold rounded-full shadow-md hover:bg-gray-600 transition duration-300 font-body"
                     onClick={() => console.log('View Service of Songs Clicked')}
                 >
                     <IconPlay />
                     <span>Click to view Service of Songs</span>
                 </button>
                 <button
-                    className="flex items-center space-x-2 px-4 py-2 bg-gray-700 text-white font-semibold rounded-full shadow-md hover:bg-gray-600 transition duration-300"
+                    className="flex items-center space-x-2 px-4 py-2 bg-gray-700 text-white font-semibold rounded-full shadow-md hover:bg-gray-600 transition duration-300 font-body"
                     onClick={() => console.log('View Funeral Service Clicked')}
                 >
                     <IconPlay />
@@ -589,8 +589,8 @@ const FinalWordsSection = () => {
         if (position === 'bottom-right') alignmentClass = 'text-left translate-x-12';
 
         return (
-            <div className={`absolute w-40 text-sm font-light leading-relaxed ${alignmentClass}`} style={{ color: customColors.text }}>
-                <h3 className="font-semibold text-lg mb-1" style={{ color: customColors.text }}>{title}</h3>
+            <div className={`absolute w-40 text-sm font-light leading-relaxed ${alignmentClass} font-body`} style={{ color: customColors.text }}>
+                <h3 className="font-semibold text-lg mb-1 font-heading" style={{ color: customColors.text }}>{title}</h3>
                 <p>{content}</p>
             </div>
         );
@@ -603,7 +603,7 @@ const FinalWordsSection = () => {
         >
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
                 
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white">
+                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white font-heading">
                     Thank You & Final Words
                 </h2>
 
@@ -680,7 +680,7 @@ const FinalWordsSection = () => {
                 </div>
 
                 {/* Final Quote */}
-                <p className="text-xl font-light italic max-w-3xl pt-10 px-4" style={{ color: customColors.text }}>
+                <p className="text-xl font-light italic max-w-3xl pt-10 px-4 font-body" style={{ color: customColors.text }}>
                     "A life that touches others goes on forever." Thank you for helping us celebrate the beautiful life and lasting legacy of our beloved Felicia.
                 </p>
 
@@ -694,11 +694,38 @@ const FinalWordsSection = () => {
 const App = () => {
   return (
     <div className="font-sans">
+      
+      {/* Font & Tailwind Configuration for Kanit (Headings) and Martel Sans (Body) */}
+      <style>
+          {`
+            @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@400;700;800&family=Martel+Sans:wght@300;400;600&display=swap');
+          `}
+      </style>
+      <script dangerouslySetInnerHTML={{__html: `
+          tailwind.config = {
+            theme: {
+              extend: {
+                fontFamily: {
+                  // Kanit for Headings
+                  heading: ['Kanit', 'sans-serif'], 
+                  // Martel Sans for Body text
+                  body: ['Martel Sans', 'sans-serif'], 
+                },
+              },
+            }
+          }
+      `}} />
+
       <HeroSection />
       <HerStorySection />
-      <FavoriteMemoriesSection />
-      <ImpactLegacySection /> 
+      
+      {/* REORDERED: Photo Gallery now appears here */}
       <PhotoGallerySection />
+      
+      {/* REORDERED: Favourite Memories section */}
+      <FavouriteMemoriesSection />
+      
+      <ImpactLegacySection /> 
       <TributesAndDetailsSection />
       <FinalWordsSection />
     </div>
