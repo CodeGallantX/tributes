@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { motion } from 'framer-motion';
 
 // --- CONFIG & DATA ---
@@ -14,7 +14,7 @@ const customColors = {
   // Dark Indigo Background for Gallery & Memories: #252841 
   darkIndigo: '#252841',
   // Dark Red Background for Impact Section: #B2353A 
-  darkRed: '#B2353A',
+  darkRed: '#910d0d',
   // Blue/Teal for the pyramid blocks & Memory Cards: #008496 
   pyramidTeal: '#008496',
   // Light Grey/White for the timeline line and text
@@ -265,7 +265,7 @@ const HerStorySection = () => {
   return (
     <div
       style={{ backgroundColor: customColors.background, color: customColors.text }}
-      className="w-full py-20 px-4 sm:px-8 lg:px-16"
+      className="w-full py-20"
     >
       <div className="max-w-4xl mx-auto">
         
@@ -401,76 +401,167 @@ const FavouriteMemoriesSection = () => {
 };
 
 
-// Impact and Legacy Section (Pyramid)
-const PyramidItem = ({ title, description, icon, index }) => {
-    const widthClasses = ['w-full', 'w-5/6', 'w-4/6', 'w-3/6'];
-    const widthClass = widthClasses[index];
-    const trapezoidPoints = "5,0 95,0 100,100 0,100";
+// PyramidSVG builds an SVG representation of the pyramid layers.
+// It uses an offscreen canvas to compute layer geometry (as requested) and then
+// emits SVG <polygon> elements so the result is vector and animatable.
+const PyramidSVG = ({ items, width = 360, height = 360 }) => {
+  // Compute polygon points using an offscreen canvas (used only for calculations).
+  const layers = useMemo(() => {
+    const canvas = document.createElement('canvas');
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext('2d');
 
-    return (
-        <div 
-            className={`relative flex justify-center h-28`}
-        >
-            <svg
-                viewBox="0 0 100 100"
-                preserveAspectRatio="none"
-                className={`absolute ${widthClass} h-full z-10 shadow-lg`}
-            >
-                <polygon 
-                    points={trapezoidPoints} 
-                    style={{ fill: customColors.pyramidTeal }}
-                />
-            </svg>
-            
-            <div className={`absolute ${widthClass} h-full z-20 flex items-center justify-between text-white p-4 sm:p-6`}>
-                <div className="flex items-center space-x-4">
-                    <div className="text-3xl sm:text-4xl">{icon}</div>
-                    
-                    <div className="flex flex-col text-left">
-                        <h3 className="text-lg  tracking-wide eading">{title}</h3>
-                        <p className="text-sm font-light opacity-90 ">{description}</p>
-                    </div>
+    // Basic layout parameters
+    const padding = 12;
+    const availableW = canvas.width - padding * 2;
+    const availableH = canvas.height - padding * 2;
+    const layerCount = items.length;
+    const layerHeight = availableH / layerCount;
+
+    // widths for layers (top smaller -> bottom wider) — corrected so pyramid is right-side up
+    const widthFractions = items.map((_, i) => {
+      if (layerCount === 1) return 0.8;
+      // top (i=0) -> narrow (e.g. 0.35), bottom (i=last) -> wide (1.0)
+      return 0.35 + (i / (layerCount - 1)) * 0.65;
+    });
+
+    // Build polygons in SVG coordinate space (0..100)
+    const polygons = items.map((item, i) => {
+      const topY = padding + i * layerHeight;
+      const bottomY = topY + layerHeight;
+      const frac = widthFractions[i];
+      const midX = canvas.width / 2;
+      const halfW = (availableW * frac) / 2;
+
+      // Points in pixel space
+      const p1 = [midX - halfW, topY];
+      const p2 = [midX + halfW, topY];
+      const p3 = [midX + halfW * 1.05, bottomY]; // slight outward slope
+      const p4 = [midX - halfW * 1.05, bottomY];
+
+      // Convert to percent (0..100) for a scalable SVG
+      const toPercent = (val, max) => (val / max) * 100;
+      const points = [p1, p2, p3, p4]
+        .map(([x, y]) => `${toPercent(x, canvas.width)},${toPercent(y, canvas.height)}`)
+        .join(' ');
+
+      // compute a fill color variant using base pyramidTeal
+      const base = items[i].color || customColors.pyramidTeal;
+      return { points, title: items[i].title, description: items[i].description, icon: items[i].icon, fill: base, index: i };
+    });
+
+    return polygons;
+  }, [items, width, height]);
+
+  // animation variants for staggering layers
+  const container = {
+    hidden: {},
+    show: { transition: { staggerChildren: 0.12, delayChildren: 0.12 } },
+  };
+  const layerVariant = {
+    hidden: { opacity: 0, y: 16, scale: 0.98 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: 'easeOut' } },
+  };
+
+  return (
+    <motion.svg
+      viewBox="0 0 100 100"
+      className="w-full h-auto"
+      initial="hidden"
+      whileInView="show"
+      viewport={{ once: true, amount: 0.3 }}
+      variants={container}
+      role="img"
+      aria-label="Pyramid representing impact and legacy"
+    >
+      {/* draw bottom layers first so smaller top layers sit above them */}
+      {layers.slice().reverse().map((layer) => (
+        <motion.polygon
+          key={layer.index}
+          points={layer.points}
+          variants={layerVariant}
+          style={{
+            fill: layer.fill,
+            filter: 'drop-shadow(0 6px 12px rgba(0,0,0,0.18))',
+          }}
+        />
+      ))}
+
+      {/* Icons + labels positioned next to each layer (SVG <foreignObject> for HTML inside svg) */}
+      {layers.map((layer) => {
+        // place label to the right of each layer; convert percent->svg coords
+        const coords = layer.points.split(' ').map(p => p.split(',').map(Number));
+        // bottom-right corner of the polygon
+        const [xBR, yBR] = coords[2];
+        const labelX = Math.min(xBR + 3.5, 96); // nudge right a bit
+        const labelY = (coords[0][1] + coords[2][1]) / 2; // vertical center
+
+        return (
+          <motion.g key={`label-${layer.index}`} variants={layerVariant}>
+            <foreignObject x={`${labelX}%`} y={`${labelY - 4}%`} width="30%" height="8%">
+              <div xmlns="http://www.w3.org/1999/xhtml" className="text-sm leading-tight" style={{ color: 'white', fontFamily: 'inherit' }}>
+                <div className="flex items-center space-x-2">
+                  <div style={{ fontSize: 18 }}>{layer.icon}</div>
+                  <div>
+                    <div style={{ fontWeight: 700 }}>{layer.title}</div>
+                    <div style={{ fontSize: 12, opacity: 0.9 }}>{layer.description}</div>
+                  </div>
                 </div>
-                {index > 0 && (
-                    <div 
-                        className="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[90%] h-px"
-                        style={{ backgroundColor: 'rgba(255, 255, 255, 0.4)' }}
-                    ></div>
-                )}
-            </div>
-        </div>
-    );
+              </div>
+            </foreignObject>
+          </motion.g>
+        );
+      })}
+    </motion.svg>
+  );
 };
 
+// Impact and Legacy Section (reworked layout + pyramid svg + motion)
 const ImpactLegacySection = () => {
-    return (
-        <div
-            style={{ backgroundColor: customColors.darkRed, color: customColors.text }}
-            className="w-full py-20 px-4 sm:px-8 lg:px-16 flex flex-col items-center"
-        >
-            <div className="max-w-4xl mx-auto w-full text-center">
-                
-                <h2 className="text-4xl sm:text-5xl  mb-16 tracking-wide text-white eading">
-                    Her Impact and Legacy
-                </h2>
+  // attach a light color variation array to impactItems for subtle layer contrast
+  const itemsWithColor = impactItems.map((it, idx) => {
+    // compute a slightly different shade by reducing hex brightness (simple approach)
+    const shadeModifiers = ['#0fa6b0', '#0ea0ab', '#0ca1a8', '#03929a'];
+    return { ...it, color: shadeModifiers[idx % shadeModifiers.length] };
+  });
 
-                <div className="flex flex-col items-center mb-10">
-                    {impactItems.slice().reverse().map((item, index) => (
-                        <PyramidItem
-                            key={item.title}
-                            {...item}
-                            index={index}
-                        />
-                    ))}
+  return (
+    <section
+      style={{ backgroundColor: customColors.darkRed, color: customColors.text }}
+      className="w-full py-20 px-4 sm:px-8 lg:px-16"
+    >
+      <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 items-center">
+        <div className="lg:pr-8">
+          <h2 className="text-4xl sm:text-5xl mb-6 tracking-wide text-white eading">
+            Her Impact and Legacy
+          </h2>
+
+          <p className="text-lg font-light opacity-90 mb-6">
+            Felicia built a life rooted in service, music, family and community. The pyramid below visualises the foundation and pillars of her legacy — each layer represents a core area of her impact.
+          </p>
+
+          <ul className="space-y-4">
+            {impactItems.map((it, i) => (
+              <li key={it.title} className="flex items-start space-x-3">
+                <div className="text-2xl" style={{ color: customColors.button }}>{it.icon}</div>
+                <div>
+                  <div className="font-semibold">{it.title}</div>
+                  <div className="text-sm opacity-90">{it.description}</div>
                 </div>
-
-                <p className="text-lg font-light opacity-90 italic max-w-2xl mx-auto ">
-                    Felicia's impact extends far beyond her immediate circle. Her dedication to uplifting others created ripples that continue to transform lives in our community and beyond.
-                </p>
-
-            </div>
+              </li>
+            ))}
+          </ul>
         </div>
-    );
+
+        <div className="flex justify-center lg:justify-end">
+          <div className="w-full max-w-md">
+            <PyramidSVG items={itemsWithColor} />
+          </div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 
