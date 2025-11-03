@@ -270,7 +270,7 @@ const HerStorySection = () => {
       <div className="max-w-4xl mx-auto">
         
         <h2 
-          className="text-4xl sm:text-5xl font-extrabold mb-16 pl-14 tracking-wide eading"
+          className="text-4xl sm:text-5xl  mb-16 pl-14 tracking-wide eading"
         >
           Her Story
         </h2>
@@ -323,7 +323,7 @@ const PhotoGallerySection = () => {
         >
             <div className="max-w-4xl mx-auto w-full">
                 
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white eading">
+                <h2 className="text-4xl sm:text-5xl  mb-12 tracking-wide text-white eading">
                     Photo Gallery
                 </h2>
 
@@ -372,7 +372,7 @@ const FavouriteMemoryCard = ({ title, content }) => (
         className="p-6 rounded-xl shadow-2xl transition duration-300 hover:scale-[1.03] flex-1 min-w-[280px]"
         style={{ backgroundColor: customColors.pyramidTeal, color: customColors.text }}
     >
-        <h3 className="text-xl font-bold mb-4 leading-snug eading">{title}</h3>
+        <h3 className="text-xl  mb-4 leading-snug eading">{title}</h3>
         <p className="text-sm font-light leading-relaxed opacity-90 ">{content}</p>
     </div>
 );
@@ -385,7 +385,7 @@ const FavouriteMemoriesSection = () => {
         >
             <div className="max-w-7xl mx-auto w-full">
                 
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white text-center sm:text-left eading">
+                <h2 className="text-4xl sm:text-5xl  mb-12 tracking-wide text-white text-center sm:text-left eading">
                     Favourite Memories
                 </h2>
 
@@ -427,7 +427,7 @@ const PyramidItem = ({ title, description, icon, index }) => {
                     <div className="text-3xl sm:text-4xl">{icon}</div>
                     
                     <div className="flex flex-col text-left">
-                        <h3 className="text-lg font-bold tracking-wide eading">{title}</h3>
+                        <h3 className="text-lg  tracking-wide eading">{title}</h3>
                         <p className="text-sm font-light opacity-90 ">{description}</p>
                     </div>
                 </div>
@@ -450,7 +450,7 @@ const ImpactLegacySection = () => {
         >
             <div className="max-w-4xl mx-auto w-full text-center">
                 
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-16 tracking-wide text-white eading">
+                <h2 className="text-4xl sm:text-5xl  mb-16 tracking-wide text-white eading">
                     Her Impact and Legacy
                 </h2>
 
@@ -481,7 +481,7 @@ const ServiceItem = ({ icon: Icon, label, value }) => (
             <Icon />
         </div>
         <div>
-            <p className="font-bold text-sm text-gray-200 ">{label}</p>
+            <p className=" text-sm text-gray-200 ">{label}</p>
             <p className="text-base text-white ">{value}</p>
         </div>
     </div>
@@ -497,7 +497,7 @@ const TributesAndDetailsSection = () => {
         
         <div className="lg:w-1/2 flex flex-col justify-between">
           <div>
-            <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide eading">
+            <h2 className="text-4xl sm:text-5xl  mb-12 tracking-wide eading">
               Tributes and Condolences
             </h2>
 
@@ -541,7 +541,7 @@ const TributesAndDetailsSection = () => {
                     }}
                 />
                 <div className="absolute inset-0 bg-black bg-opacity-10 flex items-center justify-center">
-                    <span className="text-2xl font-bold p-2 bg-white text-gray-800 rounded shadow-md opacity-80 eading">
+                    <span className="text-2xl  p-2 bg-white text-gray-800 rounded shadow-md opacity-80 eading">
                         Memorial Programme
                     </span>
                 </div>
@@ -549,7 +549,7 @@ const TributesAndDetailsSection = () => {
           </div>
 
           <div className="md:w-1/2 lg:w-full lg:mt-0 pt-4">
-            <h3 className="text-3xl font-bold mb-8 eading" style={{ color: customColors.button }}>
+            <h3 className="text-3xl  mb-8 eading" style={{ color: customColors.button }}>
               Celebration of Life Details
             </h3>
 
@@ -624,7 +624,7 @@ const FinalWordsSection = () => {
         >
             <div className="max-w-7xl mx-auto flex flex-col items-center text-center">
                 
-                <h2 className="text-4xl sm:text-5xl font-extrabold mb-12 tracking-wide text-white eading">
+                <h2 className="text-4xl sm:text-5xl  mb-12 tracking-wide text-white eading">
                     Thank You & Final Words
                 </h2>
 
