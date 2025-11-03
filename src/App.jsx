@@ -8,7 +8,7 @@ const customColors = {
   // Deep Ocean Teal Background: #00707a (Used in Hero, Story, and new Tributes sections)
   background: '#016074',
   // Lighter Teal Marker Colour: #0096a0 for contrast
-  marker: '#0096a0', 
+  marker: '#207f93', 
   // Salmon/Peach Button Background: #FFB8A5 (Used in Hero section)
   button: '#FFB8A5',
   // Dark Indigo Background for Gallery & Memories: #252841 
@@ -237,26 +237,19 @@ const TimelineItem = ({ number, title, content, isLast }) => {
       
       <div className="flex flex-col items-center mr-6">
         <div 
-          className="w-8 h-8 flex items-center justify-center text-lg font-bold rounded-lg text-white shadow-md z-10 flex-shrink-0 eading"
+          className="w-12 h-12 flex items-center justify-center text-xl rounded-none text-white shadow-md z-10 flex-shrink-0 eading"
           style={{ backgroundColor: customColors.marker }}
         >
           {number}
         </div>
-        
-        {!isLast && (
-          <div 
-            className="w-0.5 flex-grow -mt-0.5" 
-            style={{ backgroundColor: customColors.text }}
-          ></div>
-        )}
       </div>
 
-      <div className="flex-1 pb-4 relative">
+      <div className="flex-1 pb-4 relative mt-2">
         
         <div 
           className="absolute h-0.5 w-6 -left-6 z-10"
           style={{ 
-            backgroundColor: customColors.text, 
+            backgroundColor: customColors.marker, 
             top: '1rem',
           }}
         ></div>
@@ -283,13 +276,34 @@ const HerStorySection = () => {
         </h2>
 
         <div className="relative">
-          {storyItems.map((item, index) => (
-            <TimelineItem
-              key={item.number}
-              {...item}
-              isLast={index === storyItems.length - 1}
-            />
-          ))}
+          {/* Vertical connector line behind the markers */}
+          <motion.div
+            className="absolute"
+            style={{
+              left: '20px',       // aligns with marker column (w-8 + mr-6 ≈ 56px)
+              top: '1rem',        // start a little below the section title
+              bottom: '1rem',
+              width: '2px',
+              backgroundColor: customColors.marker,
+              opacity: 0.95,
+              zIndex: 0,
+              transformOrigin: 'top',
+            }}
+            initial={{ scaleY: 0 }}
+            whileInView={{ scaleY: 1 }}
+            viewport={{ once: true, amount: 0.2 }}
+            transition={{ duration: 0.7, ease: 'easeOut' }}
+          />
+
+          <div className="relative z-10">
+            {storyItems.map((item, index) => (
+              <TimelineItem
+                key={item.number}
+                {...item}
+                isLast={index === storyItems.length - 1}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </div>
