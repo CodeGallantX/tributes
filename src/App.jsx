@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 
 // --- CONFIG & DATA ---
 
@@ -226,7 +227,13 @@ const HeroSection = () => {
 // Her Story Timeline Section
 const TimelineItem = ({ number, title, content, isLast }) => {
   return (
-    <div className="flex mb-12">
+    <motion.div
+      className="flex mb-12"
+      initial={{ opacity: 0, y: 18 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.2 }}
+      transition={{ duration: 0.75, ease: 'easeOut' }}
+    >
       
       <div className="flex flex-col items-center mr-6">
         <div 
@@ -257,7 +264,7 @@ const TimelineItem = ({ number, title, content, isLast }) => {
         <h3 className="text-2xl font-semibold mb-2 mt-[-4px] eading">{title}</h3>
         <p className="text-base font-light opacity-90 leading-relaxed ">{content}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 
